@@ -6,24 +6,57 @@
 
 <h1>Client Restaurants</h1>
 
+<table id="restaurants" class="table">
+</table>
+
 @section Scripts{
 
-    <environment include="Development">
 
-    </environment>
-    <environment include="Development">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css" />
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
-    </environment>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
     <script>
         $(function () {
-            $.ajax("/api/restaurants/",
+            $.ajax("/api/Restaurants/",
                 { method: "get" })
                 .then(function (response) {
-
+                    $("#restaurants").dataTable({
+                        data: response,
+                        columns: [
+                            { "data": "name" },
+                            { "data": "location" },
+                            { "data": "cuisine" }
+                        ]
+                    });
                 });
         });
     </script>
 
 }
+@*@section Scripts {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
+    <script>
+        $(function () {
+            var cuisines = ["Unknown", "Mexican", "Italian", "Indian"]
 
+            $.ajax("/api/Restaurants/",
+                { method: "get" })
+                .then(function (response) {
+                    $("#restaurants").dataTable({
+                        data: response,
+                        columns: [
+                            { "data": "name" },
+                            { "data": "location" },
+                            {
+                                "data": "cuisine", "render": function (data) {
+                                    return cuisines[data];
+                                }
+                            }
+                        ]
+                    });
+
+                });
+        });
+    </script>
+
+}*@

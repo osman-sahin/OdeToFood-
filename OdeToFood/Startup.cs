@@ -32,7 +32,8 @@ namespace OdeToFood
 
             services.AddScoped<IRestaurantData, SqlRestaurantData>();
             services.AddRazorPages();
-            
+            services.AddControllers();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,9 +57,10 @@ namespace OdeToFood
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(e =>
             {
-                endpoints.MapRazorPages();
+                e.MapRazorPages();
+                e.MapControllers();
             });
         }
     }
